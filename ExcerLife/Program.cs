@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,36 +12,43 @@ namespace ExcerLife
     /// Programa principal.
     /// Autor: Miguel Angel Arellano Juárez
     /// Fecha: 21-04-2024
-    /// Versión: 1.0.0.0
-    /// Modificación: 21-04-2024
+    /// Versión: 1.0.0.1
+    /// Modificación: 22-04-2024
 
     internal class Program
     {
         
         static void Main(string[] args)
         {
+            //Variables necesarias para que el usuario realize elecciones
             int op;
             string val;
 
+            //Menú principal
             Console.WriteLine("*******************************");
             Console.WriteLine("*           M E N U           *");
             Console.WriteLine("*  1. Obtener mi ejercicios   *");
             Console.WriteLine("*  2. Guardar mis datos       *");
+            Console.WriteLine("*  3. IMC                     *");
+            Console.WriteLine("*  4. Salir                   *");
             Console.WriteLine("*******************************");
 
+            //Conversión de String a Entero
             val = Console.ReadLine();
             op = Convert.ToInt32(val);
 
+            //Switch del menú
             switch(op) 
             {
                 case 1:
                     // Variables
-                    int dia = 0; // Esta variable se encarga de guardar la primera elección del usuario.
+                    int dia = 0; // Esta variable se encarga de guardar la elección del día.
                     String valor = "";
 
                     // Creamos nuestro objeto Rutina
                     CRutina rutina = new CRutina();
 
+                    //Menú de dias disponibles
                     Console.WriteLine("*******************************");
                     Console.WriteLine("*           M E N U           *");
                     Console.WriteLine("*         1. Lunes            *");
@@ -50,9 +58,11 @@ namespace ExcerLife
                     Console.WriteLine("*         5. Viernes          *");
                     Console.WriteLine("*******************************");
 
+                    //Conversión de String a Entero
                     valor = Console.ReadLine();
                     dia = Convert.ToInt32(valor);
 
+                    //Switch de días
                     switch (dia)
                     {
                         case 1:
@@ -62,35 +72,38 @@ namespace ExcerLife
                             // Invocar el delegado para ejecutar el método RutinaLunes
                             rutina.delRutinaL();
                         break;
+
                         case 2:
-                            // Pasar el método RutinaLunes como argumento al delegado DRutinaLunes
+                            // Pasar el método RutinaMartes como argumento al delegado DRutinaMartes
                             rutina.AdicionaMetodoRutinaM(RutinaMartes);
 
-                            // Invocar el delegado para ejecutar el método RutinaLunes
+                            // Invocar el delegado para ejecutar el método RutinaMartes
                             rutina.delRutinaM();
                         break;
+
                         case 3:
-                            // Pasar el método RutinaLunes como argumento al delegado DRutinaLunes
+                            // Pasar el método RutinaMiercoles como argumento al delegado DRutinaMiercoles
                             rutina.AdicionaMetodoRutinaMi(RutinaMiercoles);
 
-                            // Invocar el delegado para ejecutar el método RutinaLunes
+                            // Invocar el delegado para ejecutar el método RutinaMiercoles
                             rutina.delRutinaMi();
                         break;
                         case 4:
-                            // Pasar el método RutinaLunes como argumento al delegado DRutinaLunes
+                            // Pasar el método RutinaJueves como argumento al delegado DRutinaJueves
                             rutina.AdicionaMetodoRutinaJ(RutinaJueves);
 
-                            // Invocar el delegado para ejecutar el método RutinaLunes
+                            // Invocar el delegado para ejecutar el método RutinaJueves
                             rutina.delRutinaJ();
                         break;
                         case 5:
-                            // Pasar el método RutinaLunes como argumento al delegado DRutinaLunes
+                            // Pasar el método RutinaViernes como argumento al delegado DRutinaViernes
                             rutina.AdicionaMetodoRutinaV(RutinaViernes);
 
-                            // Invocar el delegado para ejecutar el método RutinaLunes
+                            // Invocar el delegado para ejecutar el método RutinaViernes
                             rutina.delRutinaV();
                         break;
                         default:
+                            //Mensaje de error si se escoge un valor invalido.
                             Console.WriteLine("Opción no válida. Por favor, ingrese un número del 1 al 5.");
                         break;
                     }
@@ -98,22 +111,33 @@ namespace ExcerLife
 
                 case 2:
 
-                    Console.WriteLine("1)Actualizar datos, 2) Abrir datos");
+                    //Menú para introducir datos.
+                    Console.WriteLine("*******************************");
+                    Console.WriteLine("*           M E N U           *");
+                    Console.WriteLine("*    1. Introducir datos.     *");
+                    Console.WriteLine("*    2. Leer datos.           *");
+                    Console.WriteLine("*******************************");
+
+                    //Conversión de String a Entero
                     valor = Console.ReadLine();
                     op = Convert.ToInt32(valor);
+
                     if (op == 1)
                     {
-                        double peso = 0;
-                        double altura = 0;
+                        double peso = 0; //Aquí se guarda la variable para el peso
+                        double altura = 0; //Aquí se guarda la variable para la altura
 
+                        //Petición de peso y conversión de Cadena a entero
                         Console.WriteLine("Dame tu peso en kilogramos");
                         valor = Console.ReadLine();
                         peso = Convert.ToDouble(valor);
 
-                        Console.WriteLine("Dame tu altura en centimetros");
+                        //Petición de altura y conversión de Cadena a entero
+                        Console.WriteLine("Dame tu altura en centímetros");
                         valor = Console.ReadLine();
                         altura = Convert.ToDouble(valor);
 
+                        //Creamos a una persona
                         CPersona persona = new CPersona();
                         persona.Peso = peso;
                         persona.Altura = altura;
@@ -150,10 +174,82 @@ namespace ExcerLife
                         persona.MostrarInfo();
                     }    
                 break;
-            }
 
+                case 3:
+
+                    //Menú para el IMC
+                    Console.WriteLine("*******************************");
+                    Console.WriteLine("*           M E N U           *");
+                    Console.WriteLine("*    1. Calcula tu IMC.       *");
+                    Console.WriteLine("*    2. Compara IMC.          *");
+                    Console.WriteLine("*******************************");
+
+                    //Conversión de Cadena a Altura
+                    valor = Console.ReadLine();
+                    op = Convert.ToInt32(valor);
+
+                    if(op == 1) 
+                    {
+                        double peso = 0; //Aquí se guarda la variable para el peso
+                        double altura = 0; //Aquí se guarda la variable para la altura
+                        double imc; //Aquí se guarda el imc
+
+                        //Petición de peso y conversión de Cadena a entero
+                        Console.WriteLine("Dame tu peso en kilogramos");
+                        valor = Console.ReadLine();
+                        peso = Convert.ToDouble(valor);
+
+                        //Petición de altura y conversión de Cadena a entero
+                        Console.WriteLine("Dame tu altura en metros");
+                        valor = Console.ReadLine();
+                        altura = Convert.ToDouble(valor);
+
+                        //Calculo del imc
+                        imc = (peso / (altura * altura));
+
+                        //Impresión dle imc
+                        Console.WriteLine(imc);
+                    }
+                    else if (op == 2) 
+                    {
+                        //Petición del peso y la altura del primer dia. Conversión de cadena a entero.
+                        Console.WriteLine("Introduce el peso y la altura para el primer día:");
+                        Console.Write("Peso (kg): ");
+                        double weight1 = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Altura (m): ");
+                        double height1 = Convert.ToDouble(Console.ReadLine());
+
+                        //Petición del peso y la altura del primer dia. Conversión de cadena a entero.
+                        Console.WriteLine("\nIntroduce el peso y la altura para el segundo día:");
+                        Console.Write("Peso (kg): ");
+                        double weight2 = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Altura (m): ");
+                        double height2 = Convert.ToDouble(Console.ReadLine());
+
+                        // Se crean instancias de la clase CImc con los valores introducidos por el usuario
+                        CImc day1 = new CImc(weight1, height1);
+                        CImc day2 = new CImc(weight2, height2);
+                        CImc imct;
+
+                        //Calculo de la comparación del imc
+                        imct = day2 - day1;
+
+                        // Mostrar los resultados
+                        Console.WriteLine("\nPrimer día: " + day1);
+                        Console.WriteLine("Segundo día: " + day2);
+                        Console.WriteLine("Diferencia en IMC: " + imct.CalculateIMC());
+                    }
+                break;
+            }
         }
 
+        /// Método para asignar una rutina entre 5 para trabajar un cierto grupo muscular.
+        /// Autor: Miguel Angel Arellano Juárez
+        /// Fecha: 21-04-2024
+        /// Versión: 1.0.0.0
+        /// Modificación: 21-04-2024
+        /// <param > No posee parámetros</param>
+        /// <returns> No regresa nada</returns>
         public static void RutinaLunes()
         {
             //Uso del randomizador para generar un numero aleatorio que servira para elegir una rutina aleatoria.
@@ -163,6 +259,7 @@ namespace ExcerLife
 
             switch (elecL)
             {
+                //Rutina 1
                 case 1:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Pecho y Tríceps");
@@ -172,6 +269,8 @@ namespace ExcerLife
                     Console.WriteLine("Press de tríceps en polea alta: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Extensiones de tríceps con mancuerna: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 2
                 case 2:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Pecho y Hombros");
@@ -181,6 +280,8 @@ namespace ExcerLife
                     Console.WriteLine("Press militar con barra: 4 series x 8-10 repeticiones");
                     Console.WriteLine("Elevaciones laterales con mancuernas: 3 series x 10-12 repeticiones");
                     break;
+                
+                //Rutina 3
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Pecho y Abdominales");
@@ -190,6 +291,8 @@ namespace ExcerLife
                     Console.WriteLine("Crunches: 4 series x 15-20 repeticiones");
                     Console.WriteLine("Russian twists: 3 series x 15-20 repeticiones por lado");
                     break;
+
+                //Rutina 4
                 case 4:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Tríceps y Hombros");
@@ -199,6 +302,8 @@ namespace ExcerLife
                     Console.WriteLine("Press militar con mancuernas: 4 series x 8-10 repeticiones");
                     Console.WriteLine("Elevaciones frontales con barra: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 5
                 case 5:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Tríceps y Abdominales");
@@ -212,6 +317,13 @@ namespace ExcerLife
 
         }
 
+        /// Método para asignar una rutina entre 5 para trabajar un cierto grupo muscular.
+        /// Autor: Miguel Angel Arellano Juárez
+        /// Fecha: 21-04-2024
+        /// Versión: 1.0.0.0
+        /// Modificación: 21-04-2024
+        /// <param > No posee parámetros</param>
+        /// <returns> No regresa nada</returns>
         public static void RutinaMartes()
         {
             //Uso del randomizador para generar un numero aleatorio que servira para elegir una rutina aleatoria.
@@ -221,6 +333,7 @@ namespace ExcerLife
 
             switch (elecM)
             {
+                //Rutina 1
                 case 1:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Bíceps");
@@ -230,6 +343,8 @@ namespace ExcerLife
                     Console.WriteLine("Curl de bíceps con barra: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Curl de martillo con mancuernas: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 2
                 case 2:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Tríceps");
@@ -239,6 +354,8 @@ namespace ExcerLife
                     Console.WriteLine("Press de tríceps con mancuerna: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Extensiones de tríceps en polea alta: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 3
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Hombros");
@@ -248,6 +365,8 @@ namespace ExcerLife
                     Console.WriteLine("Press militar con barra: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Elevaciones laterales con mancuernas: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 4
                 case 4:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Abdominales");
@@ -257,6 +376,8 @@ namespace ExcerLife
                     Console.WriteLine("Crunches: 4 series x 15-20 repeticiones");
                     Console.WriteLine("Elevación de piernas colgado: 3 series x 12-15 repeticiones");
                     break;
+
+                //Rutina 5
                 case 5:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Bíceps y Hombros");
@@ -269,14 +390,23 @@ namespace ExcerLife
             }
         }
 
+        /// Método para asignar una rutina entre 5 para trabajar un cierto grupo muscular.
+        /// Autor: Miguel Angel Arellano Juárez
+        /// Fecha: 21-04-2024
+        /// Versión: 1.0.0.0
+        /// Modificación: 21-04-2024
+        /// <param > No posee parámetros</param>
+        /// <returns> No regresa nada</returns>
         public static void RutinaMiercoles()
         {
+            //Uso del randomizador para generar un numero aleatorio que servira para elegir una rutina aleatoria.
             Random rnd = new Random();
 
             int elecMi = rnd.Next(1, 6);
 
             switch (elecMi)
             {
+                //Rutina 1
                 case 1:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas");
@@ -286,6 +416,7 @@ namespace ExcerLife
                     Console.WriteLine("Extensiones de cuádriceps en máquina: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Curl de piernas acostado: 3 series x 10-12 repeticiones");
                     break;
+                //Rutina 2
                 case 2:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Trapecios");
@@ -295,6 +426,8 @@ namespace ExcerLife
                     Console.WriteLine("Encogimientos con barra: 4 series x 10-12 repeticiones");
                     Console.WriteLine("Encogimientos con mancuernas: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 3
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas y Abdominales");
@@ -304,6 +437,8 @@ namespace ExcerLife
                     Console.WriteLine("Crunches: 4 series x 15-20 repeticiones");
                     Console.WriteLine("Plancha: 3 series x 30-45 segundos");
                     break;
+
+                //Rutina 4
                 case 4:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas y Hombros");
@@ -313,6 +448,8 @@ namespace ExcerLife
                     Console.WriteLine("Elevaciones laterales con mancuernas: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Pájaros: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 5
                 case 5:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas y Glúteos");
@@ -325,14 +462,23 @@ namespace ExcerLife
             }
         }
 
+        /// Método para asignar una rutina entre 5 para trabajar un cierto grupo muscular.
+        /// Autor: Miguel Angel Arellano Juárez
+        /// Fecha: 21-04-2024
+        /// Versión: 1.0.0.0
+        /// Modificación: 21-04-2024
+        /// <param > No posee parámetros</param>
+        /// <returns> No regresa nada</returns>
         public static void RutinaJueves()
         {
+            //Uso del randomizador para generar un numero aleatorio que servira para elegir una rutina aleatoria.
             Random rnd = new Random();
 
             int elecJ = rnd.Next(1, 6);
 
             switch (elecJ)
             {
+                //Rutina 1
                 case 1:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Pecho y Bíceps");
@@ -342,6 +488,8 @@ namespace ExcerLife
                     Console.WriteLine("Aperturas con mancuernas: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Curl de bíceps en banco Scott: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 2
                 case 2:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Hombros y Trapecios");
@@ -351,6 +499,8 @@ namespace ExcerLife
                     Console.WriteLine("Encogimientos con barra: 4 series x 10-12 repeticiones");
                     Console.WriteLine("Pájaros: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 3
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Bíceps y Abdominales");
@@ -360,6 +510,8 @@ namespace ExcerLife
                     Console.WriteLine("Crunches: 4 series x 15-20 repeticiones");
                     Console.WriteLine("Plancha: 3 series x 30-45 segundos");
                     break;
+
+                //Rutina 4
                 case 4:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Tríceps y Glúteos");
@@ -369,6 +521,8 @@ namespace ExcerLife
                     Console.WriteLine("Extensiones de tríceps en polea alta: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Hip Thrust: 4 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 5
                 case 5:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas y Abdominales");
@@ -381,14 +535,23 @@ namespace ExcerLife
             }
         }
 
+        /// Método para asignar una rutina entre 5 para trabajar un cierto grupo muscular.
+        /// Autor: Miguel Angel Arellano Juárez
+        /// Fecha: 21-04-2024
+        /// Versión: 1.0.0.0
+        /// Modificación: 21-04-2024
+        /// <param > No posee parámetros</param>
+        /// <returns> No regresa nada</returns>
         public static void RutinaViernes()
         {
+            //Uso del randomizador para generar un numero aleatorio que servira para elegir una rutina aleatoria.
             Random rnd = new Random();
 
             int elecV = rnd.Next(1, 6);
 
             switch (elecV)
             {
+                //Rutina 1
                 case 1:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Tríceps");
@@ -398,6 +561,8 @@ namespace ExcerLife
                     Console.WriteLine("Press de tríceps con mancuerna: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Extensiones de tríceps en polea alta: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 2
                 case 2:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Pecho y Hombros");
@@ -407,6 +572,8 @@ namespace ExcerLife
                     Console.WriteLine("Press militar con barra: 4 series x 8-10 repeticiones");
                     Console.WriteLine("Elevaciones laterales con mancuernas: 3 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 3
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Bíceps y Abdominales");
@@ -416,6 +583,8 @@ namespace ExcerLife
                     Console.WriteLine("Curl de araña en polea baja: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Plancha: 3 series x 30-45 segundos");
                     break;
+
+                //Rutina 4
                 case 4:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Piernas y Glúteos");
@@ -425,6 +594,8 @@ namespace ExcerLife
                     Console.WriteLine("Patada de glúteos en máquina: 3 series x 10-12 repeticiones");
                     Console.WriteLine("Hip Thrust: 4 series x 10-12 repeticiones");
                     break;
+
+                //Rutina 5
                 case 5:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Espalda y Hombros");
