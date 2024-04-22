@@ -476,6 +476,7 @@ namespace ExcerLife
 
             int elecJ = rnd.Next(1, 6);
 
+
             switch (elecJ)
             {
                 //Rutina 1
